@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <style>
+        /* Reset some default browser styles */
+        body, h1, h2, p, a, form, input, textarea {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Style the body */
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Container to center content and give padding */
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header styling */
+        header {
+            background: #333;
+            color: #fff;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        /* Call-to-action section styling */
+        .cta {
+            background: #e2e2e2;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .cta h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .cta p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .cta .btn {
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 1.1em;
+            border-radius: 5px;
+        }
+
+        .cta .btn:hover {
+            background: #555;
+        }
+
+        /* Footer styling */
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        /* Contact form styling */
+        .contact-form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .contact-form h2 {
+            margin-bottom: 15px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .contact-form button {
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+
+        .contact-form button:hover {
+            background: #555;
+        }
+
+        /* Slideshow styling */
+        .slideshow {
+            position: relative;
+            max-width: 30%;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .slideshow img {
+            width: 100%;
+            display: none;
+        }
+
+        .slideshow img.active {
+            display: block;
+        }
+
+        .toggle-content {
+            margin-top: 20px;
+        }
+
+        .toggle-content .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Welcome to Our Service</h1>
+            <p>Your success starts here.</p>
+        </div>
+    </header>
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to get started?</h2>
+            <p>Join us today and take the first step towards a brighter future.</p>
+            <a href="#signup" class="btn">Sign Up Now</a>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact-form">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <form id="contactForm">
+                <input type="text" id="name" placeholder="Your Name" required>
+                <input type="email" id="email" placeholder="Your Email" required>
+                <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+            <p id="formResponse" style="color: green; margin-top: 10px;"></p>
+        </div>
+    </section>
+
+    <!-- Slideshow Section -->
+    <section class="slideshow">
+        <img src="image1.jpg" class="active" alt="Slide 1">
+        <img src="image2.jpg" alt="Slide 2">
+        <img src="image3.jpg" alt="Slide 3">
+    </section>
+
+    <!-- Toggle Content Section -->
+    <section class="toggle-content">
+        <div class="container">
+            <button id="toggleButton">Show More</button>
+            <div id="moreContent" class="hidden">
+                <h3>Additional Information</h3>
+                <p>This section provides more details about our service. Here you can add more text, images, or other content as needed.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Your Company. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Form validation and submission
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            if (name && email && message) {
+                document.getElementById('formResponse').textContent = 'Thank you for contacting us, ' + name + '!';
+                document.getElementById('contactForm').reset();
+            } else {
+                document.getElementById('formResponse').textContent = 'Please fill out all fields.';
+                document.getElementById('formResponse').style.color = 'red';
+            }
+        });
+
+        // Slideshow functionality
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slideshow img');
+
+        function showSlides() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === slideIndex) {
+                    slide.classList.add('active');
+                }
+            });
+            slideIndex = (slideIndex + 1) % slides.length;
+        }
+
+        setInterval(showSlides, 3000); // Change slide every 3 seconds
+
+        // Toggle content functionality
+        document.getElementById('toggleButton').addEventListener('click', function() {
+            const moreContent = document.getElementById('moreContent');
+            if (moreContent.classList.contains('hidden')) {
+                moreContent.classList.remove('hidden');
+                this.textContent = 'Show Less';
+            } else {
+                moreContent.classList.add('hidden');
+                this.textContent = 'Show More';
+            }
+        });
+    </script>
+</body>
+</html>
